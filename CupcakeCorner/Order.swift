@@ -8,7 +8,20 @@
 import Foundation
 
 @Observable
-class Order {
+class Order: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case _type = "type"
+        case _quantity = "quantity"
+        case _extraFrosting = "extraFrosting"
+        case _addSprinkles = "addSprinkle"
+        case _customOrderEnabled = "customOrderEnabled"
+        case _name = "name"
+        case _city = "city"
+        case _streetAddress = "streetAddress"
+        case _zip = "zip"
+    }
+    
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
     var type = 0
@@ -26,13 +39,14 @@ class Order {
     var extraFrosting = false
     var addSprinkles = false
     
+    
     var name = ""
     var streetAddress = ""
     var city = ""
     var zip = ""
     
     var hasValidDeliveryDetails: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || zip.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             return false
         }
         return true
@@ -52,4 +66,21 @@ class Order {
         }
         return cost
     }
+    
+//    func saveDeliveryDetails() {
+//        let defaults = UserDefaults.standard
+//        defaults.set(name, forKey: "name")
+//        defaults.set(streetAddress, forKey: "streetAddress")
+//        defaults.set(city, forKey: "city")
+//        defaults.set(zip, forKey: "zip")
+//    }
+//    
+//    func loadDeliveryDetails() {
+//        let defaults = UserDefaults.standard
+//        name = defaults.string(forKey: "name") ?? ""
+//        streetAddress = defaults.string(forKey: "streetAddress") ?? ""
+//        city = defaults.string(forKey: "city") ?? ""
+//        zip = defaults.string(forKey: "zip") ?? ""
+//    }
+    
 }

@@ -21,6 +21,7 @@ struct AddressView: View {
             
             Section {
                 NavigationLink("Check out") {
+//                    order.saveDeliveryDetails()
                     CheckoutView(order: order)
                 }
             }
@@ -28,6 +29,9 @@ struct AddressView: View {
         }
         .navigationTitle("Delivery Details")
         .navigationBarTitleDisplayMode(.inline)
+//        .onAppear {
+//            order.loadDeliveryDetails()
+//        }
     }
 }
 
